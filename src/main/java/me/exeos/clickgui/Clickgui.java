@@ -98,8 +98,13 @@ public final class Clickgui extends Screen {
                 if (click.button() == 0) {
                     module.toggle();
                 } else if (click.button() == 1) {
-                    selectedModule = module;
-                    buildComponents(module);
+                    if (selectedModule == module) {
+                        selectedModule = null;
+                        comps.clear();
+                    } else {
+                        selectedModule = module;
+                        buildComponents(module);
+                    }
                 }
             }
             offset += 15;

@@ -3,6 +3,7 @@
   "id": "clickgui",
   "version": "${version}",
   "name": "ClickGUI",
+  "authors": ["Amox"],
   "description": "A small Fabric client-side ClickGUI template.",
   "environment": "client",
   "entrypoints": {

@@ -13,10 +13,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
-
-import java.util.Comparator;
 
 public final class ClickGuiModClient implements ClientModInitializer {
     private static final KeyBinding OPEN_GUI = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -47,19 +46,16 @@ public final class ClickGuiModClient implements ClientModInitializer {
             Setting range = autoAttack.getSettings().get(2);
             double attackRange = range.getValDouble();
 
-            Entity target = client.world.getOtherEntities(
-                            client.player,
-                            client.player.getBoundingBox().expand(attackRange),
-                            entity -> entity instanceof LivingEntity livingEntity
-                                    && livingEntity.isAlive()
-                                    && ((mobs.getValBoolean() && livingEntity instanceof MobEntity)
-                                    || (players.getValBoolean() && livingEntity instanceof PlayerEntity))
-                                    && client.player.squaredDistanceTo(livingEntity) <= attackRange * attackRange)
-                    .stream()
-                    .min(Comparator.comparingDouble(client.player::squaredDistanceTo))
-                    .orElse(null);
+                Entity target = client.crosshairTarget instanceof EntityHitResult entityHitResult
+                    ? entityHitResult.getEntity()
+                    : null;
+                boolean validTarget = target instanceof LivingEntity livingEntity
+                    && livingEntity.isAlive()
+                    && ((mobs.getValBoolean() && livingEntity instanceof MobEntity)
+                    || (players.getValBoolean() && livingEntity instanceof PlayerEntity))
+                    && client.player.squaredDistanceTo(target) <= attackRange * attackRange;
 
-            if (target != null) {
+                if (validTarget && client.player.getAttackCooldownProgress(0.0f) >= 1.0f) {
                 client.interactionManager.attackEntity(client.player, target);
             }
         });
