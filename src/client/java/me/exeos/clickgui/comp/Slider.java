@@ -3,6 +3,7 @@ package me.exeos.clickgui.comp;
 import me.exeos.clickgui.Clickgui;
 import me.exeos.clickgui.setting.Setting;
 import me.exeos.module.Module;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 
@@ -19,15 +20,15 @@ public final class Slider extends Comp {
     }
 
     @Override
-    public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && isInside(mouseX, mouseY, parent.posX + x - 70, parent.posY + y + 10, parent.posX + x + 20, parent.posY + y + 20)) {
+    public void mouseClicked(Click click, boolean doubled) {
+        if (click.button() == 0 && isInside(click.x(), click.y(), parent.posX + x - 70, parent.posY + y + 10, parent.posX + x + 20, parent.posY + y + 20)) {
             dragging = true;
-            updateValue(mouseX);
+            updateValue(click.x());
         }
     }
 
     @Override
-    public void mouseReleased(double mouseX, double mouseY, int button) {
+    public void mouseReleased(Click click) {
         dragging = false;
     }
 

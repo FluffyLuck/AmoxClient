@@ -8,6 +8,7 @@ import me.exeos.clickgui.comp.Slider;
 import me.exeos.clickgui.setting.Setting;
 import me.exeos.module.Category;
 import me.exeos.module.Module;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.input.KeyInput;
@@ -74,16 +75,17 @@ public final class Clickgui extends Screen {
         }
     }
 
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && isInside(mouseX, mouseY, posX, posY - 10, panelWidth, posY)) {
+    @Override
+    public boolean mouseClicked(Click click, boolean doubled) {
+        if (click.button() == 0 && isInside(click.x(), click.y(), posX, posY - 10, panelWidth, posY)) {
             dragging = true;
-            dragX = mouseX - posX;
-            dragY = mouseY - posY;
+            dragX = click.x() - posX;
+            dragY = click.y() - posY;
         }
 
         int offset = 0;
         for (Category category : Category.values()) {
-            if (button == 0 && isInside(mouseX, mouseY, posX, posY + 1 + offset, posX + 60, posY + 15 + offset)) {
+            if (click.button() == 0 && isInside(click.x(), click.y(), posX, posY + 1 + offset, posX + 60, posY + 15 + offset)) {
                 selectedCategory = category;
                 comps.clear();
             }
@@ -92,10 +94,10 @@ public final class Clickgui extends Screen {
 
         offset = 0;
         for (Module module : Tutorial.INSTANCE.getModuleManager().getModules(selectedCategory)) {
-            if (isInside(mouseX, mouseY, posX + 65, posY + 1 + offset, posX + 125, posY + 15 + offset)) {
-                if (button == 0) {
+            if (isInside(click.x(), click.y(), posX + 65, posY + 1 + offset, posX + 125, posY + 15 + offset)) {
+                if (click.button() == 0) {
                     module.toggle();
-                } else if (button == 1) {
+                } else if (click.button() == 1) {
                     if (selectedModule == module) {
                         selectedModule = null;
                         comps.clear();
@@ -109,15 +111,16 @@ public final class Clickgui extends Screen {
         }
 
         for (Comp comp : comps) {
-            comp.mouseClicked(mouseX, mouseY, button);
+            comp.mouseClicked(click, doubled);
         }
         return true;
     }
 
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    @Override
+    public boolean mouseReleased(Click click) {
         dragging = false;
         for (Comp comp : comps) {
-            comp.mouseReleased(mouseX, mouseY, button);
+            comp.mouseReleased(click);
         }
         return true;
     }

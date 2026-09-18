@@ -3,6 +3,7 @@ package me.exeos.clickgui.comp;
 import me.exeos.clickgui.Clickgui;
 import me.exeos.clickgui.setting.Setting;
 import me.exeos.module.Module;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.input.KeyInput;
 
@@ -12,10 +13,10 @@ public class Comp {
     public Module module;
     public Setting setting;
 
-    public void mouseClicked(double mouseX, double mouseY, int button) {
+    public void mouseClicked(Click click, boolean doubled) {
     }
 
-    public void mouseReleased(double mouseX, double mouseY, int button) {
+    public void mouseReleased(Click click) {
     }
 
     public void drawScreen(DrawContext context, int mouseX, int mouseY) {
