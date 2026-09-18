@@ -4,6 +4,7 @@ import me.exeos.clickgui.Clickgui;
 import me.exeos.clickgui.setting.Setting;
 import me.exeos.module.Module;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.input.KeyInput;
 
 public class Comp {
     public double x, y, x2, y2;
@@ -24,7 +25,6 @@ public class Comp {
         return mouseX > left && mouseX < right && mouseY > top && mouseY < bottom;
     }
 
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        return false;
+    public void keyPressed(KeyInput input) {
     }
 }

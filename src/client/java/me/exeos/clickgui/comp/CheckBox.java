@@ -20,7 +20,7 @@ public final class CheckBox extends Comp {
         int left = (int) parent.posX + (int) x - 70;
         int top = (int) parent.posY + (int) y;
         context.fill(left, top, left + 80, top + 10, setting.getValBoolean() ? 0xffe60ae6 : 0xff1e1e1e);
-        context.drawText(parent.textRenderer, Text.literal(setting.getName()), left + 15, top + 1, 0xffc8c8c8, false);
+        context.drawText(parent.getTextRenderer(), Text.literal(setting.getName()), left + 15, top + 1, 0xffc8c8c8, false);
     }
 
     @Override

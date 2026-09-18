@@ -32,6 +32,6 @@ public final class Combo extends Comp {
         int left = (int) parent.posX + (int) x - 70;
         int top = (int) parent.posY + (int) y;
         context.fill(left, top, left + 70, top + 10, 0xff1e1e1e);
-        context.drawText(parent.textRenderer, Text.literal(setting.getName() + ": " + setting.getValString()), left + 1, top + 1, 0xffc8c8c8, false);
+        context.drawText(parent.getTextRenderer(), Text.literal(setting.getName() + ": " + setting.getValString()), left + 1, top + 1, 0xffc8c8c8, false);
     }
 }

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "clickgui",
+  "version": "1.0.0",
+  "name": "ClickGUI",
+  "authors": ["Amox"],
+  "description": "A small Fabric client-side ClickGUI template.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.exeos.ClickGuiModClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.2",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

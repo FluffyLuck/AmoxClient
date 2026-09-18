@@ -10,6 +10,7 @@ import me.exeos.module.Category;
 import me.exeos.module.Module;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public final class Clickgui extends Screen {
     }
 
     @Override
-    protected void applyBlur() {
+    protected void applyBlur(DrawContext context) {
     }
 
     @Override
@@ -73,7 +74,6 @@ public final class Clickgui extends Screen {
         }
     }
 
-    @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button == 0 && isInside(mouseX, mouseY, posX, posY - 10, panelWidth, posY)) {
             dragging = true;
@@ -114,7 +114,6 @@ public final class Clickgui extends Screen {
         return true;
     }
 
-    @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         dragging = false;
         for (Comp comp : comps) {
@@ -124,11 +123,11 @@ public final class Clickgui extends Screen {
     }
 
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
         for (Comp comp : comps) {
-            comp.keyPressed(keyCode, scanCode, modifiers);
+            comp.keyPressed(input);
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     private void buildComponents(Module module) {
